@@ -219,4 +219,12 @@ Movie.prototype.getEpisodesCount = function(season) {
   return count;
 }
 
+Movie.prototype.getSeasonsCount = function() {
+  var count = 0;
+
+  if(this.seasons != null && this.seasons != undefined) {
+    count = this.seasons.length;
+  }
+  return count;
+}
 

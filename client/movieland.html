@@ -24,7 +24,7 @@
     <li class="">
         <button class="delete">&times;</button>
         {{#if mediaIsTV media_type }}
-            <a class="oneMovie"><span class="text">{{title}} - tv</span></a>
+            <a class="oneMovie"><span class="text">{{title}} - tv</span></a><span>{{getSeasonsWatchedCount id }}</span>
         {{else}}
             <span class="text">{{title}}</span>
         {{/if}}
