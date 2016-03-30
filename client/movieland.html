@@ -1,0 +1,75 @@
+<head>
+    <title>Movieland</title>
+</head>
+
+<body>
+    <div class="container">
+    <header>
+        <h1>MovieLand</h1>
+
+        <form class="new-movie">
+            <input type="text" name="text" placeholder="Type to add new movie or series" />
+        </form>
+    </header>
+    <ul>
+        {{#each showviewings}}
+            {{> viewing}}
+        {{/each}}
+    </ul>
+
+    </div>
+</body>
+
+<template name="viewing">
+    <li class="">
+        <button class="delete">&times;</button>
+        {{#if mediaIsTV media_type }}
+            <a class="oneMovie"><span class="text">{{title}} - tv</span></a>
+        {{else}}
+            <span class="text">{{title}}</span>
+        {{/if}}
+    </li>
+</template>
+
+<template name="editMovieDialog">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content" id="editMovieDiv">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit TV Show</h4>
+                </div>
+
+                <ul id="tvSeasons"></ul>
+
+                <div class="modal-footer">
+                    <button class="saveEpisodes btn btn-default" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="addMovieDialog">
+
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content" id="addMovieDiv">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Movie</h4>
+                </div>
+
+                <ul id="foundMovieList"></ul>
+
+                <div class="modal-footer">
+                    <button class="movieSaveButton btn btn-default" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
