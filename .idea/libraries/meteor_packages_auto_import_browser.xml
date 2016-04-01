@@ -96,6 +96,7 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-client/1.2.1/web.browser/id_map.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/random_stream.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/method_invocation.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/barbatus_stars-rating/1.0.7/web.browser/stars_rating.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/namespace.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/utils.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/heartbeat.js" />
@@ -204,6 +205,7 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-client/1.2.1/web.browser/id_map.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/random_stream.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/method_invocation.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/barbatus_stars-rating/1.0.7/web.browser/stars_rating.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/namespace.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/utils.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/heartbeat.js" />

@@ -22,3 +22,4 @@ insecure                # Allow all DB writes from clients (for prototyping)
 twbs:bootstrap          # adds bootstrap
 peppelg:bootstrap-3-modal # bootstrap modal dialogs
 http                    # adds http requests
+barbatus:stars-rating   # star ratings

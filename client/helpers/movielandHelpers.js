@@ -20,3 +20,4 @@ Template.viewing.helpers({
       return count > 0? " Seasons watched: " + count : "";
     }
 });
+

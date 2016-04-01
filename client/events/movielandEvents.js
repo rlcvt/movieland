@@ -69,7 +69,13 @@ Template.viewing.events({
           }
         }
       });
-    }
+    },
+  "click .stars-rating": function (event) {
+    var rating = $('#'+this.id).data('userrating');
+    var movie =  MoviesWeWatched.findOne({_id: this.id});
+    movie = new Movie(movie.id);
+    movie.updateRating(rating);
+  }
 });
 
 Template.editMovieDialog.events({

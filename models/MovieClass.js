@@ -12,6 +12,7 @@ Movie = function (movieId) {
     this.poster_path = "";
     this.createdAt = "";
     this.seasons = [];
+    this.userRating = -1;
 
     if(arguments.length > 0 && movieId != null){
       var movie = MoviesWeWatched.findOne({id: movieId});
@@ -24,6 +25,7 @@ Movie = function (movieId) {
         this.backdrop_path = movie.backdrop_path;
         this.poster_path = movie.poster_path;
         this.createdAt = movie.createdAt;
+        this.userRating = movie.userRating;
 
         //if(hasValue(movie.seasons)) {
         if(movie.seasons != undefined && movie.seasons != null && movie.seasons.length > 0){
@@ -41,6 +43,7 @@ Movie.prototype.insert = function(movie) {
         release_date: (movie.media_type == 'movie' ? movie.release_date: ""),
         backdrop_path: movie.backdrop_path,
         poster_path: movie.poster_path,
+        userRating: movie.userRating,
         createdAt: new Date()
     });
 };
@@ -54,6 +57,13 @@ Movie.prototype.updateOne = function(id, newText) {
         {_id: id},
         {$set: {text: newText}}
     );
+};
+
+Movie.prototype.updateRating = function(rating) {
+  MoviesWeWatched.update(
+    {_id: this._id},
+    {$set: {userRating: rating}}
+  );
 };
 
 Movie.prototype.haveWatched = function(id) {
