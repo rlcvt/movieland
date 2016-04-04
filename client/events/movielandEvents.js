@@ -30,7 +30,7 @@ Template.body.events({
 });
 
 Template.viewing.events({
-    "click .delete": function () {
+    "click .mvl-delete": function () {
         var viewing = new Movie();
         viewing.remove(this._id);
     },
@@ -149,7 +149,7 @@ Template.addMovieDialog.events({
       movie.insert(selected[i]);
     }
   },
-  "click .movieCheckbox": function () {
+  "click .mvl_checkbox": function () {
     var checked = false;
 
     $('#addMovieDiv input:checked').each(function() {

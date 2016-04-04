@@ -3,31 +3,35 @@
 </head>
 
 <body>
-    <div class="container">
-    <header>
-        <h1>MovieLand</h1>
+    <div class="panel panel-default mvl-max-width">
+        <div class="panel-heading">
+            <h1>MovieLand</h1>
 
-        <form class="new-movie">
-            <input type="text" name="text" placeholder="Type to add new movie or series" />
-        </form>
-    </header>
-    <ul>
-        {{#each showviewings}}
-            {{> viewing}}
-        {{/each}}
-    </ul>
-
+            <form class="new-movie">
+                <input type="text" class="form-control" name="text" placeholder="Type to add new movie or series" />
+            </form>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {{#each showviewings}}
+                    {{> viewing}}
+                {{/each}}
+            </ul>
+        </div>
     </div>
 </body>
 
 <template name="viewing">
-    <li class="">
-        <button class="delete">&times;</button>
+    <li class="list-group-item">
         {{#if mediaIsTV media_type }}
-            <a class="oneMovie"><span class="text">{{title}} - tv</span></a><span>{{getSeasonsWatchedCount id }}</span>
+            <!--<a class="oneMovie"><span class="text">{{title}} - tv</span></a><span>{{getSeasonsWatchedCount id }}</span>-->
+            <a class="oneMovie"><span class="text">{{title}}</span></a><img class="mvl-tv" src="/images/092-tv.png"/><span>{{getSeasonsWatchedCount id }}</span>
+
         {{else}}
             <span class="text">{{title}}</span>
         {{/if}}
+        <button class="btn btn-primary btn-xs mvl-delete"><span class="glyphicon glyphicon-remove-sign"></span></button>
+
         {{>starsRating mutable=true class="stars-rating" id=_id rating=userRating}}
     </li>
 </template>
@@ -38,10 +42,15 @@
             <div class="modal-content" id="editMovieDiv">
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit TV Show</h4>
+                    <div class="bootstrap-dialog-header">
+                        <div class="bootstrap-dialog-close-button" style="display: block;">
+                            <button class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="bootstrap-dialog-title" id="ef3b98ed-6d8b-4347-a05a-c8e8cf89e512_title">Edit TV Show</div>
+                    </div>
                 </div>
 
-                <ul id="tvSeasons"></ul>
+                <ul class="list-group" id="tvSeasons"></ul>
 
                 <div class="modal-footer">
                     <button class="saveEpisodes btn btn-default" data-dismiss="modal">Save</button>
@@ -60,10 +69,17 @@
             <div class="modal-content" id="addMovieDiv">
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Movie</h4>
+                    <div class="bootstrap-dialog-header">
+                        <div class="bootstrap-dialog-close-button" style="display: block;">
+                            <button class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="bootstrap-dialog-title" id="ef3b98ed-6d8b-4347-a05a-c8e8cf89e512_title">Add a Movie</div>
+                    </div>
                 </div>
 
-                <ul id="foundMovieList"></ul>
+                <div class="mvl-add-movie-div">
+                    <ul class="list-group" id="foundMovieList"></ul>
+                </div>
 
                 <div class="modal-footer">
                     <button class="movieSaveButton btn btn-default" data-dismiss="modal">Save</button>

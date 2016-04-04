@@ -188,8 +188,9 @@ createButton = function (text) {
 
     }
 
-    button.innerHTML = text;
-
+    if(hasValue(text)) {
+        button.innerHTML = text;
+    }
     return button;
   }
 

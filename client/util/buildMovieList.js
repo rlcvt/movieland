@@ -14,12 +14,13 @@ buildMovieList = function (ulId, movieList) {
       continue;
 
     li = createLi();
+    addAttribute(li, "class","list-group-item");
     span = createSpan();
 
     if(!movie.haveWatched(movieList[i].id)) {
       checkbox = createCheckbox();
       addAttribute(checkbox, "data-movie", movieList[i]);
-      addAttribute(checkbox, "class", "movieCheckbox");
+      addAttribute(checkbox, "class", "mvl-checkbox");
       li.appendChild(checkbox);
     }
     var title;

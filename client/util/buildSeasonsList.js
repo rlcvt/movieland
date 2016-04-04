@@ -9,6 +9,7 @@ buildSeasonsList = function (ulId) {
   clearElement(ulId);
 
   li = createLi();
+  addAttribute(li,"class","list-group-item");
   span = createSpan();
 
   span.innerHTML = tvShow.name;
@@ -21,6 +22,7 @@ buildSeasonsList = function (ulId) {
 
     // add the name of the season
     li = createLi();
+    addAttribute(li,"class","list-group-item");
 
     span = createSpan();
     span.innerHTML = seasons[i].name;
@@ -33,8 +35,9 @@ buildSeasonsList = function (ulId) {
 
     // add the button to show/hide episodes div
     var button = createButton("show/hide");
+
     var season_number = "season_"+seasons[i].season_number;
-    addAttribute(button, "class", "episodeVisability");
+    addAttribute(button, "class", "mvl-hide-show-button episodeVisability");
     addAttribute(button, "value", season_number);
     span.appendChild(button);
 
@@ -42,12 +45,15 @@ buildSeasonsList = function (ulId) {
 
     // add the div and the list of episodes for seasons[i]
     var div = createDiv(season_number)
-    addAttribute(div, "class", "season_div");
+    addAttribute(div, "class", "season_div mvl-episodes-div");
 
     var episodeUl = createUl();
+    addAttribute(episodeUl,"class","list-group");
 
     for(var j = 0; j < seasons[i].episodes.length; j++) {
       var episodeLi = createLi();
+      addAttribute(episodeLi,"class","list-group-item");
+
       var episodeSpan = createSpan(seasons[i].episodes[j].name);
 
       var checkbox = createCheckbox();
