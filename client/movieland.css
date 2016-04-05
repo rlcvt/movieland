@@ -36,3 +36,7 @@
     border: none;
     margin-left: 10px;
 }
+
+.mvl-add-movie-width {
+    max-width: 40%;
+}

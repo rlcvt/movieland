@@ -1,7 +1,20 @@
 Template.body.helpers({
     showviewings: function () {
-        return MoviesWeWatched.find({}, {sort: {createdAt: -1}});
+      //return MoviesWeWatched.find({}, {sort: {createdAt: -1}});
+      return movieListSort();
+    },
+    getDateSortType: function() {
+      return getSortDateTypeValue();
+    },
+    getRatingSortType: function() {
+      return getSortRateTypeValue();
+    },
+    getNameSortType: function() {
+      return getSortNameTypeValue();
     }
+    //getRefreshMovieList: function() {
+    //  return Session.get("refreshCount");
+    //}
 });
 
 UI.registerHelper('getInputValue', function() {
@@ -20,4 +33,6 @@ Template.viewing.helpers({
       return count > 0? " Seasons watched: " + count : "";
     }
 });
+
+
 

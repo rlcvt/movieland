@@ -8,8 +8,11 @@
             <h1>MovieLand</h1>
 
             <form class="new-movie">
-                <input type="text" class="form-control" name="text" placeholder="Type to add new movie or series" />
+                <input type="text" class="form-control mvl-add-movie-width" name="text" placeholder="Type to add new movie or series" />
             </form>
+            <button class="sortBy btn btn-default" id="sortByDateId" data-sort-type="{{getDateSortType}}">date sort</button>
+            <button class="sortBy btn btn-default" id="sortByRatingId" data-sort-type="{{getRatingSortType}}">rating sort</button>
+            <button class="sortBy btn btn-default" id="sortByNameId" data-sort-type="{{getNameSortType}}">name sort</button>
         </div>
         <div class="panel-body">
             <ul class="list-group">
