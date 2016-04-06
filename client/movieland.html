@@ -10,9 +10,15 @@
             <form class="new-movie">
                 <input type="text" class="form-control mvl-add-movie-width" name="text" placeholder="Type to add new movie or series" />
             </form>
-            <button class="sortBy btn btn-default" id="sortByDateId" data-sort-type="{{getDateSortType}}">date sort</button>
-            <button class="sortBy btn btn-default" id="sortByRatingId" data-sort-type="{{getRatingSortType}}">rating sort</button>
-            <button class="sortBy btn btn-default" id="sortByNameId" data-sort-type="{{getNameSortType}}">name sort</button>
+            <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByDateId" data-sort-type="{{getDateSortType}}" data-toggle="tooltip" title="Sort by date added">
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            </button>
+            <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByRatingId" data-sort-type="{{getRatingSortType}}" data-toggle="tooltip" title="Sort by rating">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </button>
+            <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByNameId" data-sort-type="{{getNameSortType}}" data-toggle="tooltip" title="Sort by name">
+                <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+            </button>
         </div>
         <div class="panel-body">
             <ul class="list-group">
@@ -27,7 +33,6 @@
 <template name="viewing">
     <li class="list-group-item">
         {{#if mediaIsTV media_type }}
-            <!--<a class="oneMovie"><span class="text">{{title}} - tv</span></a><span>{{getSeasonsWatchedCount id }}</span>-->
             <a class="oneMovie"><span class="text">{{title}}</span></a><img class="mvl-tv" src="/images/092-tv.png"/><span>{{getSeasonsWatchedCount id }}</span>
 
         {{else}}

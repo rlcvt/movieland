@@ -27,14 +27,13 @@ Template.body.events({
 
       event.target.text.value = "";
     },
-  "click .sortBy": function(event) {
+  "click .mvl-sort-by": function(event) {
     var id = event.currentTarget.id;
     var sortByType = $("#"+id).attr("data-sort-type");
-    Session.set("currentSortType", sortByType);
 
     //setting currentSortType doesn't trigger reactivity when the same button is clicked twice (sort ascending then descending) because the
-    //value of currentSortType doesn't change. So force reactivity by changing refreshCount. A get on refreshCount is done in movieListSort()
-    Session.set('refreshCount', new Date());
+    //value of currentSortType doesn't change. So force reactivity by constantly changing currentSortType with an added timestamp
+    Session.set("currentSortType", addTimestamp(sortByType));
   }
 
 });

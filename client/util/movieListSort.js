@@ -7,11 +7,9 @@ var sortTypeDate = "date";
 var sortTypeRating = "rating";
 var sortTypeName = "name";
 
-movieListSort = function(sortType) {
+movieListSort = function() {
 
-  var refreshCount = Session.get('refreshCount');
-
-  switch(Session.get("currentSortType")) {
+  switch(removeTimestamp(Session.get("currentSortType"))) {
     case sortTypeDate:
       dateSortOrder = getSortOrder(dateSortOrder);
       return MoviesWeWatched.find({}, {sort: {createdAt: dateSortOrder}});
