@@ -17,7 +17,7 @@ movieListSort = function() {
 
     case sortTypeRating:
       ratingSortOrder = getSortOrder(ratingSortOrder);
-      return MoviesWeWatched.find({}, {sort: {userRating: ratingSortOrder}});
+      return MoviesWeWatched.find({}, {sort: {userRating: ratingSortOrder, title: -1}});
       break;
 
     case sortTypeName:
