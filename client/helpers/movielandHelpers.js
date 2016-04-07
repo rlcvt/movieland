@@ -12,9 +12,6 @@ Template.body.helpers({
     getNameSortType: function() {
       return getSortNameTypeValue();
     }
-    //getRefreshMovieList: function() {
-    //  return Session.get("refreshCount");
-    //}
 });
 
 UI.registerHelper('getInputValue', function() {

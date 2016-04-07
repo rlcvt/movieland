@@ -34,6 +34,23 @@ Template.body.events({
     //setting currentSortType doesn't trigger reactivity when the same button is clicked twice (sort ascending then descending) because the
     //value of currentSortType doesn't change. So force reactivity by constantly changing currentSortType with an added timestamp
     Session.set("currentSortType", addTimestamp(sortByType));
+  },
+  "submit .movie-search": function (event) {
+    // Prevent default browser form submit
+    event.preventDefault();
+
+    // Get value from form element
+    var text = event.target.text.value;
+
+    // make sure we have a value
+    if(text.trim().length == 0) {
+      return;
+    }
+
+    // do the search
+    MoviesWeWatched.find({ $text: { $search: "justified" } });
+
+    event.target.text.value = "";
   }
 
 });
@@ -44,7 +61,6 @@ Template.viewing.events({
         viewing.remove(this._id);
     },
     "click .oneMovie": function () {
-        //Session.set("oneMovie", this);
 
       Meteor.call("getTVPrimaryInfo",this.id, function( error, response ) {
         if (error) {
@@ -53,7 +69,6 @@ Template.viewing.events({
         } else {
           if(checkResponse(response)){
             var tvShow = response.data;
-            //var seasons = getSeasonsForTV(tvShow);
 
             var seasons = [];
             for (i = 0; i < tvShow.number_of_seasons; i++) {
