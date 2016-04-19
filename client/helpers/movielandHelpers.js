@@ -1,7 +1,10 @@
+subscriptionHandle = null;
+currentSort = null;
+
 Template.body.helpers({
     showviewings: function () {
-      //return MoviesWeWatched.find({}, {sort: {createdAt: -1}});
-      return movieListSort();
+      var cursor =  movieListSort(removeTimestamp(Session.get("currentSortType")));
+      return cursor;
     },
     getDateSortType: function() {
       return getSortDateTypeValue();
@@ -12,6 +15,12 @@ Template.body.helpers({
     getNameSortType: function() {
       return getSortNameTypeValue();
     }
+});
+
+Template.body.onCreated(function() {
+  this.autorun(() => {
+    subscriptionHandle = this.subscribe("getMovieListDefault",removeTimestamp(Session.get("currentSortType")), currentSearchTerm);
+  });
 });
 
 UI.registerHelper('getInputValue', function() {

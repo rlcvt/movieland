@@ -56,3 +56,23 @@ Meteor.methods({
   }
 });
 
+Meteor.publish("getMovieListDefault", function(sortType, searchTerm) {
+  if(sortType != "search") {
+    return MoviesWeWatched.find({}, {sort: {createdAt: -1}});
+  }
+  else {
+    var cursor = MoviesWeWatched.find({ $text: {$search: searchTerm} }, {fields: {score: {$meta: "textScore"}}, sort: {score: {$meta: "textScore"}}});
+    return cursor;
+  }
+});
+
+Meteor.publish("search", function(searchValue) {
+  if (searchValue == null || searchValue == undefined ||searchValue.trim().length == 0) {
+    return;
+  }
+
+  var cursor = MoviesWeWatched.find({ $text: {$search: searchValue} }, {fields: {score: {$meta: "textScore"}}, sort: {score: {$meta: "textScore"}}});
+  return cursor;
+});
+
+

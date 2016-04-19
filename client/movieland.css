@@ -44,3 +44,10 @@
 .mvl-sort-by {
     margin-top: 10px;
 }
+
+.movie-search {
+    display: inline-block;
+    margin-left:10px;
+    margin-top: 10px;
+    width: 60%;
+}

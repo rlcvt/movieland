@@ -1,3 +1,5 @@
+currentSearchTerm = "";
+
 Template.body.events({
     "submit .new-movie": function (event) {
         // Prevent default browser form submit
@@ -47,10 +49,10 @@ Template.body.events({
       return;
     }
 
-    // do the search
-    MoviesWeWatched.find({ $text: { $search: "justified" } });
+    currentSearchTerm = text.trim();
+    Session.set("currentSortType", addTimestamp("search"));
 
-    event.target.text.value = "";
+    //event.target.text.value = "";
   }
 
 });
@@ -172,6 +174,8 @@ Template.addMovieDialog.events({
       var movie = new Movie();
       movie.insert(selected[i]);
     }
+
+    Session.set("currentSortType", addTimestamp(getSortDateTypeValue()));
   },
   "click .mvl-checkbox": function () {
     var checked = false;

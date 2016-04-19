@@ -20,15 +20,20 @@
                 <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
             </button>
             <form class="movie-search">
-                <input type="text" class="form-control mvl-add-movie-width" name="text" placeholder="Search for a movie you watched" />
+                <input type="text" class="form-control"  name="text" placeholder="Search for a movie you watched" />
             </form>
+            <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="searchId" title="Search">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
 
         </div>
         <div class="panel-body">
             <ul class="list-group">
-                {{#each showviewings}}
-                    {{> viewing}}
-                {{/each}}
+            {{#each showviewings}}
+                {{> viewing}}
+            {{else}}
+                No search results
+            {{/each}}
             </ul>
         </div>
     </div>
