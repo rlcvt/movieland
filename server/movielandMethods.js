@@ -75,7 +75,7 @@ Meteor.methods({
       var movie = new Movie();
       var id = movie.insert(selected[i]);
 
-      console.log("from insert - i: " + i + " id: " + id);
+      //console.log("from insert - i: " + i + " id: " + id);
 
       Meteor.call("getCast", selected[i].id, selected[i].media_type, function (error, response) {
         if (error) {
@@ -83,9 +83,8 @@ Meteor.methods({
           console.log(error);
         } else {
           if ((response != undefined && response.length > 0)) {
-            console.log("from cast - i: " + i + " id: " + id);
+            //console.log("from cast - i: " + i + " id: " + id);
             movie.updateCast(id, response);
-            var x = 0;
           }
         }
       });
@@ -103,13 +102,5 @@ Meteor.publish("getMovieListDefault", function(sortType, searchTerm) {
   }
 });
 
-Meteor.publish("search", function(searchValue) {
-  if (searchValue == null || searchValue == undefined ||searchValue.trim().length == 0) {
-    return;
-  }
-
-  var cursor = MoviesWeWatched.find({ $text: {$search: searchValue} }, {fields: {score: {$meta: "textScore"}}, sort: {score: {$meta: "textScore"}}});
-  return cursor;
-});
 
 
