@@ -53,6 +53,43 @@ Meteor.methods({
   updateTVShow: function(movieId, selected){
     var movie = new Movie(movieId);
     movie.updateTVShow(selected);
+  },
+  getCast: function (id, mediaType) {
+    var media = mediaType == "movie"? "movie" : "tv";
+
+    var future = new Future();
+    var urlQuery = baseUrl+"/" + media +"/"+id+"/credits?"+api_key;
+
+    HTTP.get(urlQuery, {}, function(error, response) {
+      if ( error ) {
+        future.return( error );
+      } else {
+        future.return( response.data["cast"]);
+      }
+    });
+
+    return future.wait();
+  },
+  insertNewMovies: function(selected) {
+    for (var i in selected) {
+      var movie = new Movie();
+      var id = movie.insert(selected[i]);
+
+      console.log("from insert - i: " + i + " id: " + id);
+
+      Meteor.call("getCast", selected[i].id, selected[i].media_type, function (error, response) {
+        if (error) {
+          alert(error);
+          console.log(error);
+        } else {
+          if ((response != undefined && response.length > 0)) {
+            console.log("from cast - i: " + i + " id: " + id);
+            movie.updateCast(id, response);
+            var x = 0;
+          }
+        }
+      });
+    }
   }
 });
 

@@ -35,7 +35,7 @@ Movie = function (movieId) {
   }
 
 Movie.prototype.insert = function(movie) {
-    MoviesWeWatched.insert({
+  var newId = MoviesWeWatched.insert({
         id: movie.id,
         title: (movie.media_type == 'movie' ? movie.title : movie.name),
         media_type: movie.media_type,
@@ -46,6 +46,8 @@ Movie.prototype.insert = function(movie) {
         userRating: movie.userRating,
         createdAt: new Date()
     });
+
+  return newId;
 };
 
 Movie.prototype.remove = function(id) {
@@ -57,6 +59,24 @@ Movie.prototype.updateOne = function(id, newText) {
         {_id: id},
         {$set: {text: newText}}
     );
+};
+
+Movie.prototype.updateCast = function(id, cast) {
+  var castIndex = "";
+
+  // building a string that can be used in search
+  for(var i = 0; i < cast.length; i++) {
+    try {
+      castIndex = castIndex.concat(" " + cast[i].name + " " + cast[i].character);
+    } catch (e) {
+      console.log("updateCast error - index: " + i + " error: " + e);
+    }
+  }
+
+  MoviesWeWatched.update(
+    {_id: id},
+    {$set: {cast: cast, castIndex: castIndex}}
+  );
 };
 
 Movie.prototype.updateRating = function(rating) {

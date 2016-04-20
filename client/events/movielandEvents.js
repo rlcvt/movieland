@@ -37,25 +37,32 @@ Template.body.events({
     //value of currentSortType doesn't change. So force reactivity by constantly changing currentSortType with an added timestamp
     Session.set("currentSortType", addTimestamp(sortByType));
   },
-  "submit .movie-search": function (event) {
+  "submit .movie-search": function (event, template) {
     // Prevent default browser form submit
     event.preventDefault();
 
     // Get value from form element
     var text = event.target.text.value;
 
-    // make sure we have a value
-    if(text.trim().length == 0) {
-      return;
-    }
-
-    currentSearchTerm = text.trim();
-    Session.set("currentSortType", addTimestamp("search"));
-
+    setSearchTerm(text);
     //event.target.text.value = "";
+  },
+  "click .search-button": function() {
+    var text = $("#searchInput").val();
+    console.log("search term: " + text);
+    setSearchTerm(text);
+  }
+});
+
+setSearchTerm = function(text) {
+  // make sure we have a value
+  if(text.trim().length == 0) {
+    return;
   }
 
-});
+  currentSearchTerm = text.trim();
+  Session.set("currentSortType", addTimestamp("search"));
+}
 
 Template.viewing.events({
     "click .mvl-delete": function () {
@@ -170,10 +177,13 @@ Template.addMovieDialog.events({
       selected.push($(this).prop('data-movie'));
     });
 
-    for (var i in selected) {
-      var movie = new Movie();
-      movie.insert(selected[i]);
-    }
+    // doing this server side because it needs to be synchronous
+    Meteor.call("insertNewMovies", selected, function (error, response) {
+      if (error) {
+        handleAlert(error);
+        console.log(error);
+      }
+    });
 
     Session.set("currentSortType", addTimestamp(getSortDateTypeValue()));
   },
