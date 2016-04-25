@@ -2,7 +2,9 @@ var separator ="*_*";
 
 addTimestamp = function(value) {
   if(hasValue(value)) {
-    var str = value + separator + Date.now();
+    //var str = value + separator + Date.now();
+    var str = Date.now() + separator + value;
+
     return str;
   }
 
@@ -12,7 +14,7 @@ addTimestamp = function(value) {
 removeTimestamp = function(value) {
   if(hasValue(value)) {
     var str = value.split(separator);
-    return str[0];
+    return str[1];
   }
 
   return "";

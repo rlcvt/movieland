@@ -3,28 +3,24 @@ var dateSortOrder = null;
 var ratingSortOrder = null;
 var nameSortOrder = null;
 
-var sortTypeDate = "date";
-var sortTypeRating = "rating";
-var sortTypeName = "name";
+var sortTypeDate = "createdAt";
+var sortTypeRating = "userRating";
+var sortTypeName = "title";
 var sortTypeSearch = "search";
 
 movieListSort = function(sortType) {
     switch(sortType) {
       case sortTypeDate:
-        dateSortOrder = getSortOrder(dateSortOrder);
         return MoviesWeWatched.find({}, {sort: {createdAt: dateSortOrder}});
         break;
 
       case sortTypeRating:
-        ratingSortOrder = getSortOrder(ratingSortOrder);
-        var cursor = MoviesWeWatched.find({}, {sort: {userRating: ratingSortOrder, title: -1}});
-        console.log("after rating");
+        var cursor = MoviesWeWatched.find({}, {sort: {userRating: ratingSortOrder, title: 1}});
         return cursor;
         break;
 
       case sortTypeName:
-        nameSortOrder = getSortOrder(nameSortOrder);
-        return MoviesWeWatched.find({}, {sort: {title: nameSortOrder}});
+        return MoviesWeWatched.find({}, {sort: {title: nameSortOrder }});
         break;
 
       case sortTypeSearch:
@@ -65,5 +61,30 @@ isReady = function() {
     isReady();
   }
 }
+
+getSortTypeOrder = function(sortType) {
+
+  var currentOrder = -1;
+
+  switch(sortType) {
+    case sortTypeDate:
+      dateSortOrder = getSortOrder(dateSortOrder);
+      currentOrder = dateSortOrder;
+      break;
+
+    case sortTypeRating:
+      ratingSortOrder = getSortOrder(ratingSortOrder);
+      currentOrder = ratingSortOrder;
+      break;
+
+    case sortTypeName:
+      nameSortOrder = getSortOrder(nameSortOrder);
+      currentOrder = nameSortOrder;
+      break;
+  }
+
+  return currentOrder;
+
+};
 
 

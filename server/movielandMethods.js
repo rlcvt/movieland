@@ -89,18 +89,37 @@ Meteor.methods({
         }
       });
     }
+  },
+  getTotalWatchedCount: function() {
+    var future = new Future();
+    future.return(MoviesWeWatched.find({}).count());
+    return future.wait();
   }
 });
 
-Meteor.publish("getMovieListDefault", function(sortType, searchTerm) {
+Meteor.publish("getMovieListDefault", function(sortType, sortOrder, searchTerm, recordsPerPage, recordsToSkip) {
   if(sortType != "search") {
-    return MoviesWeWatched.find({}, {sort: {createdAt: -1}});
+    var name = sortType;
+
+    if(sortType == ""){
+      name = "createdAt";
+    }
+    var value = sortOrder;
+    var query = {};
+    query[name] = value;
+
+    if(sortType == "userRating") {
+      var title = "title";
+      query[title] = 1;
+    }
+    return MoviesWeWatched.find({}, {sort: query, limit: recordsPerPage, skip: recordsToSkip });;
   }
   else {
     var cursor = MoviesWeWatched.find({ $text: {$search: searchTerm} }, {fields: {score: {$meta: "textScore"}}, sort: {score: {$meta: "textScore"}}});
     return cursor;
   }
 });
+
 
 
 

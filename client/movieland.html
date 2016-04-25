@@ -28,6 +28,8 @@
 
         </div>
         <div class="panel-body">
+            {{getTotalCount}}
+            <h4>Movies watched: <span class="badge" id="watchedId"></span></h4>
             <ul class="list-group">
             {{#each showviewings}}
                 {{> viewing}}
@@ -35,6 +37,12 @@
                 No search results
             {{/each}}
             </ul>
+            <nav>
+                <ul class="pager">
+                    <li><a class="previous-button" href="#">Previous</a></li>
+                    <li><a class="next-button" href="#">Next</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </body>

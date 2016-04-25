@@ -1,5 +1,5 @@
 subscriptionHandle = null;
-currentSort = null;
+currentSort = "createdAt";
 
 Template.body.helpers({
     showviewings: function () {
@@ -14,12 +14,24 @@ Template.body.helpers({
     },
     getNameSortType: function() {
       return getSortNameTypeValue();
+    },
+    getTotalCount: function() {
+      //Doing server side call because server goes to db directly
+      Meteor.call("getTotalWatchedCount",  function (error, response) {
+        moviesWatched = response;
+        setWatchedDisplay(moviesWatched);
+      });
     }
 });
 
+setWatchedDisplay = function (count){
+  $("#watchedId").text(count);
+  recordsToSkip = 0; // reset paging
+}
+
 Template.body.onCreated(function() {
   this.autorun(() => {
-    subscriptionHandle = this.subscribe("getMovieListDefault",removeTimestamp(Session.get("currentSortType")), currentSearchTerm);
+    subscriptionHandle = this.subscribe("getMovieListDefault",removeTimestamp(Session.get("currentSortType")), currentSortOrder, currentSearchTerm, recordsPerPage, recordsToSkip);
   });
 });
 

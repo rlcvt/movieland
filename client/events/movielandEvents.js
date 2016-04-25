@@ -1,4 +1,5 @@
 currentSearchTerm = "";
+currentSortOrder = -1;
 
 Template.body.events({
     "submit .new-movie": function (event) {
@@ -32,9 +33,11 @@ Template.body.events({
   "click .mvl-sort-by": function(event) {
     var id = event.currentTarget.id;
     var sortByType = $("#"+id).attr("data-sort-type");
+    clearPaging();
+    currentSort = sortByType;
 
-    //setting currentSortType doesn't trigger reactivity when the same button is clicked twice (sort ascending then descending) because the
-    //value of currentSortType doesn't change. So force reactivity by constantly changing currentSortType with an added timestamp
+    currentSortOrder = getSortTypeOrder(sortByType);
+
     Session.set("currentSortType", addTimestamp(sortByType));
   },
   "submit .movie-search": function (event, template) {
@@ -51,6 +54,23 @@ Template.body.events({
     var text = $("#searchInput").val();
     console.log("search term: " + text);
     setSearchTerm(text);
+  },
+  "click .previous-button": function() {
+    if(!isPagingStart()) {
+      decrementPage();
+      Session.set("currentSortType", addTimestamp(currentSort));
+    }
+  },
+  "click .next-button": function(event) {
+    if(isPagingStart()) {
+      getNumberOfPages();
+    }
+
+    if(!isLastPage()) {
+      incrementPage();
+      Session.set("currentSortType", addTimestamp(currentSort));
+
+    }
   }
 });
 
@@ -59,7 +79,7 @@ setSearchTerm = function(text) {
   if(text.trim().length == 0) {
     return;
   }
-
+  clearPaging();
   currentSearchTerm = text.trim();
   Session.set("currentSortType", addTimestamp("search"));
 }
@@ -68,6 +88,8 @@ Template.viewing.events({
     "click .mvl-delete": function () {
         var viewing = new Movie();
         viewing.remove(this._id);
+        moviesWatched--;
+        setWatchedDisplay(moviesWatched);
     },
     "click .oneMovie": function () {
 
@@ -183,6 +205,8 @@ Template.addMovieDialog.events({
         handleAlert(error);
         console.log(error);
       }
+      moviesWatched = moviesWatched + selected.length;
+      setWatchedDisplay(moviesWatched);
     });
 
     Session.set("currentSortType", addTimestamp(getSortDateTypeValue()));
