@@ -32,7 +32,7 @@ Movie = function (movieId) {
           this.seasons = movie.seasons;
         }
     }
-  }
+  };
 
 Movie.prototype.insert = function(movie) {
   var newId = MoviesWeWatched.insert({
@@ -88,7 +88,7 @@ Movie.prototype.updateRating = function(rating) {
 
 Movie.prototype.haveWatched = function(id) {
   return  MoviesWeWatched.find({id: id}).count() > 0;
-}
+};
 
 Movie.prototype.updateTVShow = function(selected) {
   /*
@@ -201,7 +201,7 @@ Movie.prototype.updateTVShow = function(selected) {
       )
     }
   }
-}
+};
 
 Movie.prototype.hasSeason = function(season) {
   var found = false;
@@ -213,7 +213,7 @@ Movie.prototype.hasSeason = function(season) {
     }
   }
   return found;
-}
+};
 
 Movie.prototype.hasEpisode = function(watchedEpisodes, episode) {
   var found = false;
@@ -225,7 +225,7 @@ Movie.prototype.hasEpisode = function(watchedEpisodes, episode) {
     }
   }
   return found;
-}
+};
 
 
 Movie.prototype.getEpisodesForSeason = function(season_number) {
@@ -238,7 +238,7 @@ Movie.prototype.getEpisodesForSeason = function(season_number) {
     }
   }
   return episodes;
-}
+};
 
 Movie.prototype.getEpisodesCount = function(season) {
   var count = 0;
@@ -247,7 +247,7 @@ Movie.prototype.getEpisodesCount = function(season) {
     count = season.episodes.length;
   }
   return count;
-}
+};
 
 Movie.prototype.getSeasonsCount = function() {
   var count = 0;
@@ -256,5 +256,5 @@ Movie.prototype.getSeasonsCount = function() {
     count = this.seasons.length;
   }
   return count;
-}
+};
 

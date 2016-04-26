@@ -69,7 +69,6 @@ Template.body.events({
     if(!isLastPage()) {
       incrementPage();
       Session.set("currentSortType", addTimestamp(currentSort));
-
     }
   }
 });
@@ -81,8 +80,11 @@ setSearchTerm = function(text) {
   }
   clearPaging();
   currentSearchTerm = text.trim();
+  currentSort = "search";
+  currentSortOrder = 1;
+  Meteor.call("clearSearchCount");
   Session.set("currentSortType", addTimestamp("search"));
-}
+};
 
 Template.viewing.events({
     "click .mvl-delete": function () {

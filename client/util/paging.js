@@ -8,26 +8,36 @@ clearPaging = function (){
   recordsToSkip = 0;
   numberOfPages = 0;
   currentPage = 1;
-}
+};
 
 getNumberOfPages = function() {
-  numberOfPages =Math.trunc(moviesWatched/recordsPerPage);
-}
+
+  if(currentSort != "search") {
+    numberOfPages = Math.round(moviesWatched / recordsPerPage);
+  }
+  else {
+    var countSearchResults = -1;
+    Meteor.call("getSearchCount", function( error, response ) {
+      countSearchResults = response;
+      numberOfPages = Math.round(countSearchResults / recordsPerPage);
+    });
+  }
+};
 
 isPagingStart = function() {
   return recordsToSkip == 0;
-}
+};
 
 incrementPage = function () {
   recordsToSkip = recordsToSkip + recordsPerPage;
   currentPage++;
-}
+};
 
 isLastPage = function () {
   return currentPage == numberOfPages;
-}
+};
 
 decrementPage = function () {
   recordsToSkip = recordsToSkip - recordsPerPage;
   currentPage--;
-}
+};

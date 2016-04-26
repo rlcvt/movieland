@@ -9,13 +9,14 @@ var sortTypeName = "title";
 var sortTypeSearch = "search";
 
 movieListSort = function(sortType) {
+    var cursor;
     switch(sortType) {
       case sortTypeDate:
         return MoviesWeWatched.find({}, {sort: {createdAt: dateSortOrder}});
         break;
 
       case sortTypeRating:
-        var cursor = MoviesWeWatched.find({}, {sort: {userRating: ratingSortOrder, title: 1}});
+        cursor = MoviesWeWatched.find({}, {sort: {userRating: ratingSortOrder, title: 1}});
         return cursor;
         break;
 
@@ -24,8 +25,8 @@ movieListSort = function(sortType) {
         break;
 
       case sortTypeSearch:
-        var  x =  MoviesWeWatched.find({}, {sort: [['score', 'title']]});
-        return x;
+        cursor =  MoviesWeWatched.find({}, {sort: [['score', 'title']]});
+        return cursor;
         break;
 
       default:
@@ -60,7 +61,7 @@ isReady = function() {
   else {
     isReady();
   }
-}
+};
 
 getSortTypeOrder = function(sortType) {
 

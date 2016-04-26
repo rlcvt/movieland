@@ -3,6 +3,8 @@ var Future = Npm.require( 'fibers/future' );
 var api_key ="api_key=08d7f1ef5d14b57800fa986a6cca2680";
 var baseUrl = "http://api.themoviedb.org/3";
 var searchUrl = baseUrl + "/search/multi";
+var countSearchResults = 0;
+
 
 
 // using Node Futures here to make the call synchronous. Found code to do this here:
@@ -94,6 +96,14 @@ Meteor.methods({
     var future = new Future();
     future.return(MoviesWeWatched.find({}).count());
     return future.wait();
+  },
+  getSearchCount: function() {
+    var future = new Future();
+    future.return(countSearchResults);
+    return future.wait();
+  },
+  clearSearchCount: function() {
+    countSearchResults = 0;
   }
 });
 
@@ -115,7 +125,8 @@ Meteor.publish("getMovieListDefault", function(sortType, sortOrder, searchTerm, 
     return MoviesWeWatched.find({}, {sort: query, limit: recordsPerPage, skip: recordsToSkip });;
   }
   else {
-    var cursor = MoviesWeWatched.find({ $text: {$search: searchTerm} }, {fields: {score: {$meta: "textScore"}}, sort: {score: {$meta: "textScore"}}});
+    var cursor = MoviesWeWatched.find({ $text: {$search: searchTerm} }, {fields: {score: {$meta: "textScore"}}, sort: {score: {$meta: "textScore"}}, limit: recordsPerPage, skip: recordsToSkip});
+    countSearchResults = cursor.count();
     return cursor;
   }
 });
