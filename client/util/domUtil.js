@@ -1,13 +1,13 @@
 addAttribute = function(element, attribute, value) {
   $(element).prop(attribute, value);
-}
+};
 
 function addHRRule(table, colspan) {
   var row = createTableRow(table, "");
   var hr = document.createElement('hr');
   var cell = createElementCell(row, "", hr, "");
   cell.colSpan = colspan;
-}
+};
 
 function addOnclick() {
   if(arguments.length < 3) {
@@ -42,7 +42,7 @@ createDiv = function (id) {
   }
 
   return div;
-}
+};
 
  function createInputElement(type, name, id, classname, size, maxlength, value, required, vtype) {
 	var element = null;
@@ -81,7 +81,7 @@ createDiv = function (id) {
     var cb = document.createElement("input");
     cb.setAttribute("type", "checkbox");
     return cb;
-  }
+  };
 
   createLi = function (text) {
     var li = document.createElement("li");
@@ -91,7 +91,7 @@ createDiv = function (id) {
     }
 
     return li;
-  }
+  };
 
   createSpan = function(text) {
     var span = document.createElement("span");
@@ -100,13 +100,13 @@ createDiv = function (id) {
       span.innerHTML = text;
     }
     return span;
-  }
+  };
 
 createUl = function() {
   var ul = document.createElement("ul");
 
   return ul;
-}
+};
 
 	
 	// table elements	
@@ -134,7 +134,7 @@ createUl = function() {
 
   clearElement = function (id) {
     $("#"+id).empty();
-  }
+  };
 
   /*
   Clears the input elements in a table. Does not reset them to their defaults.
@@ -176,6 +176,16 @@ createUl = function() {
     return img;
   }
 
+createLink = function (text) {
+  var link = document.createElement('a');
+
+  if(hasValue(text)) {
+    link.innerHTML = text;
+  }
+  return link;
+};
+
+
 createButton = function (text) {
     var button = document.createElement('button');
 
@@ -192,7 +202,7 @@ createButton = function (text) {
         button.innerHTML = text;
     }
     return button;
-  }
+  };
 
 // looks for changes from default values. Returns number of changes
 function tableChanges(tableId) {

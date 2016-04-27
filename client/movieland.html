@@ -56,8 +56,11 @@
             <span class="text">{{title}}</span>
         {{/if}}
         <button class="btn btn-primary btn-xs mvl-delete"><span class="glyphicon glyphicon-remove-sign"></span></button>
-
         {{>starsRating mutable=true class="stars-rating" id=_id rating=userRating}}
+        <div class="text">Viewed: {{getFormattedDate createdAt}} <a class="mvl-hide-show-link extrasVisibility" id="{{getExtrasLinkId id}}">more...</a></div>
+        <div class="overviewDisplay mvl-hide" id="{{getExtrasDivId id}}">
+            {{overview}}
+        </div>
     </li>
 </template>
 

@@ -32,9 +32,10 @@
     vertical-align: top;
 }
 
-.mvl-hide-show-button {
+.mvl-hide-show-link {
     border: none;
     margin-left: 10px;
+    text-decoration: none !important;
 }
 
 .mvl-add-movie-width {
@@ -54,4 +55,8 @@
 
 .mvl-total-watched {
     margin-bottom: 50px;
+}
+
+.mvl-hide {
+    display: none;
 }

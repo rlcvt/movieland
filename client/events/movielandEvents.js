@@ -40,7 +40,7 @@ Template.body.events({
 
     Session.set("currentSortType", addTimestamp(sortByType));
   },
-  "submit .movie-search": function (event, template) {
+  "submit .movie-search": function (event) {
     // Prevent default browser form submit
     event.preventDefault();
 
@@ -61,7 +61,7 @@ Template.body.events({
       Session.set("currentSortType", addTimestamp(currentSort));
     }
   },
-  "click .next-button": function(event) {
+  "click .next-button": function() {
     if(isPagingStart()) {
       getNumberOfPages();
     }
@@ -94,7 +94,6 @@ Template.viewing.events({
         setWatchedDisplay(moviesWatched);
     },
     "click .oneMovie": function () {
-
       Meteor.call("getTVPrimaryInfo",this.id, function( error, response ) {
         if (error) {
           handleAlert(error);
@@ -127,11 +126,18 @@ Template.viewing.events({
         }
       });
     },
-  "click .stars-rating": function (event) {
+  "click .stars-rating": function () {
     var rating = $('#'+this.id).data('userrating');
     var movie =  MoviesWeWatched.findOne({_id: this.id});
     movie = new Movie(movie.id);
     movie.updateRating(rating);
+  },
+  "click .extrasVisibility": function(event)
+  {
+    var linkId = event.currentTarget.id;
+    var divId = linkId.split(extrasLinkId)[0];
+    divId = divId + extrasDivId;
+    toggleVisibility(divId, linkId);
   }
 });
 
@@ -147,9 +153,9 @@ Template.editMovieDialog.events({
       buildSeasonsList("tvSeasons");
       $( ".season_div" ).hide();
     },
-    "click .episodeVisability": function (event) {
-      $( "#"+event.toElement.value ).toggle();
-
+    "click .episodeVisability": function (event)
+    {
+      toggleVisibility($( "#"+event.toElement.value)[0].id, event.currentTarget.id);
     },
     "click .saveEpisodes": function () {
       selected = [];

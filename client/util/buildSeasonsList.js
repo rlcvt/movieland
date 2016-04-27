@@ -34,17 +34,19 @@ buildSeasonsList = function (ulId) {
     }
 
     // add the button to show/hide episodes div
-    var button = createButton("show/hide");
+    //var button = createButton("show/hide");
+    var link = createLink("more...");
 
     var season_number = "season_"+seasons[i].season_number;
-    addAttribute(button, "class", "mvl-hide-show-button episodeVisability");
-    addAttribute(button, "value", season_number);
-    span.appendChild(button);
+    addAttribute(link, "class", "mvl-hide-show-link episodeVisability");
+    addAttribute(link, "value", season_number);
+    addAttribute(link, "id", season_number+"Id");
+    span.appendChild(link);
 
     li.appendChild(span);
 
     // add the div and the list of episodes for seasons[i]
-    var div = createDiv(season_number)
+    var div = createDiv(season_number);
     addAttribute(div, "class", "season_div mvl-episodes-div");
 
     var episodeUl = createUl();
@@ -76,4 +78,4 @@ buildSeasonsList = function (ulId) {
     ul.appendChild(li);
   }
 
-}
+};

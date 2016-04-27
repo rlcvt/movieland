@@ -1,5 +1,7 @@
 subscriptionHandle = null;
 currentSort = "createdAt";
+extrasLinkId = "_extrasLinkId";
+extrasDivId = "_extrasDivId";
 
 Template.body.helpers({
     showviewings: function () {
@@ -27,7 +29,7 @@ Template.body.helpers({
 setWatchedDisplay = function (count){
   $("#watchedId").text(count);
   recordsToSkip = 0; // reset paging
-}
+};
 
 Template.body.onCreated(function() {
   this.autorun(() => {
@@ -35,9 +37,9 @@ Template.body.onCreated(function() {
   });
 });
 
-UI.registerHelper('getInputValue', function() {
-    var movie = Session.get("oneMovie");
-    return movie.title;
+UI.registerHelper('getFormattedDate', function(value) {
+    var x = 0;
+    return value.toLocaleDateString("en-US");
 });
 
 Template.viewing.helpers({
@@ -46,10 +48,18 @@ Template.viewing.helpers({
     },
     getSeasonsWatchedCount: function(id){
       var movie = new Movie(id);
-      var count = movie.getSeasonsCount()
+      var count = movie.getSeasonsCount();
 
       return count > 0? " Seasons watched: " + count : "";
-    }
+    },
+  getExtrasLinkId: function(id)
+  {
+    return id+extrasLinkId;
+  },
+  getExtrasDivId: function(id)
+  {
+    return id+extrasDivId;
+  }
 });
 
 
