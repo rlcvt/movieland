@@ -60,7 +60,23 @@
         <div class="text">Viewed: {{getFormattedDate createdAt}} <a class="mvl-hide-show-link extrasVisibility" id="{{getExtrasLinkId id}}">more...</a></div>
         <div class="overviewDisplay mvl-hide" id="{{getExtrasDivId id}}">
             {{overview}}
+            {{#if cast}}
+                <h4><span class="label label-default">Cast:</span></h4>
+                <div class="mvl-episodes-div">
+                    <ul class="list-group">
+                        {{#each cast}}
+                            {{> showCast}}
+                        {{/each}}
+                    </ul>
+                </div>
+            {{/if}}
         </div>
+    </li>
+</template>
+
+<template name="showCast" >
+    <li class="list-group-item">
+    {{character}} - {{name}}
     </li>
 </template>
 
