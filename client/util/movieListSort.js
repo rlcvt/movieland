@@ -25,7 +25,7 @@ movieListSort = function(sortType) {
         break;
 
       case sortTypeSearch:
-        cursor =  MoviesWeWatched.find({}, {sort: [['score', 'title']]});
+        cursor =  MoviesWeWatched.find({userId: Meteor.userId()}, {sort: [['score', 'title']]});
         return cursor;
         break;
 

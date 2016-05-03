@@ -22,5 +22,10 @@ twbs:bootstrap          # adds bootstrap
 peppelg:bootstrap-3-modal # bootstrap modal dialogs
 http                    # adds http requests
 barbatus:stars-rating   # star ratings
+
+accounts-ui
+#useraccounts:bootstrap
+accounts-password
+
 standard-minifier-css
 #standard-minifier-js

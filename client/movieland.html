@@ -7,43 +7,49 @@
         <div class="panel-heading">
             <h1>MovieLand</h1>
 
-            <form class="new-movie">
-                <input type="text" class="form-control mvl-add-movie-width" name="text" placeholder="Type to add new movie or series" />
-            </form>
-            <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByDateId" data-sort-type="{{getDateSortType}}" data-toggle="tooltip" title="Sort by date added">
-                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-            </button>
-            <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByRatingId" data-sort-type="{{getRatingSortType}}" data-toggle="tooltip" title="Sort by rating">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            </button>
-            <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByNameId" data-sort-type="{{getNameSortType}}" data-toggle="tooltip" title="Sort by name">
-                <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
-            </button>
-            <form class="movie-search">
-                <input type="text" class="form-control"  id="searchInput" name="text" placeholder="Search for a movie you watched" />
-            </form>
-            <button class="mvl-sort-by btn btn-default btn-sm search-button" aria-label="Left Align" id="searchId" title="Search for a movie you watched">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </button>
+            {{> loginButtons}}
 
-        </div>
-        <div class="panel-body">
-            {{getTotalCount}}
-            <h4>Movies watched: <span class="badge" id="watchedId"></span></h4>
-            <ul class="list-group">
-            {{#each showviewings}}
-                {{> viewing}}
-            {{else}}
-                No search results
-            {{/each}}
-            </ul>
-        </div>
-        <nav>
-            <ul class="pager">
-                <li><a class="previous-button"  href="#">Previous</a></li>
-                <li><a class="next-button"  href="#">Next</a></li>
-            </ul>
-        </nav>
+        {{#if currentUser}}
+            <form class="new-movie">
+                    <input type="text" class="form-control mvl-add-movie-width" name="text" placeholder="Type to add new movie or series" />
+                </form>
+                <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByDateId" data-sort-type="{{getDateSortType}}" data-toggle="tooltip" title="Sort by date added">
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                </button>
+                <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByRatingId" data-sort-type="{{getRatingSortType}}" data-toggle="tooltip" title="Sort by rating">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                </button>
+                <button class="mvl-sort-by btn btn-default btn-sm" aria-label="Left Align" id="sortByNameId" data-sort-type="{{getNameSortType}}" data-toggle="tooltip" title="Sort by name">
+                    <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span>
+                </button>
+                <form class="movie-search">
+                    <input type="text" class="form-control"  id="searchInput" name="text" placeholder="Search for a movie you watched" />
+                </form>
+                <button class="mvl-sort-by btn btn-default btn-sm search-button" aria-label="Left Align" id="searchId" title="Search for a movie you watched">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+        {{/if}}
+            </div>
+        {{#if currentUser}}
+
+            <div class="panel-body">
+                {{getTotalCount}}
+                <h4>Movies watched: <span class="badge" id="watchedId"></span></h4>
+                <ul class="list-group">
+                {{#each showviewings}}
+                    {{> viewing}}
+                {{else}}
+                    No search results
+                {{/each}}
+                </ul>
+            </div>
+            <nav>
+                <ul class="pager">
+                    <li><a class="previous-button"  href="#">Previous</a></li>
+                    <li><a class="next-button"  href="#">Next</a></li>
+                </ul>
+            </nav>
+        {{/if}}
     </div>
 </body>
 

@@ -13,6 +13,7 @@ Movie = function (movieId) {
     this.createdAt = "";
     this.seasons = [];
     this.userRating = -1;
+    this.userId = Meteor.userId();
 
     if(arguments.length > 0 && movieId != null){
       var movie = MoviesWeWatched.findOne({id: movieId});
@@ -44,19 +45,20 @@ Movie.prototype.insert = function(movie) {
         backdrop_path: movie.backdrop_path,
         poster_path: movie.poster_path,
         userRating: movie.userRating,
-        createdAt: new Date()
+        createdAt: new Date(),
+        userId: this.userId
     });
 
   return newId;
 };
 
 Movie.prototype.remove = function(id) {
-    MoviesWeWatched.remove({_id: id});
+    MoviesWeWatched.remove({_id: id, userId: this.userId});
 };
 
 Movie.prototype.updateOne = function(id, newText) {
     MoviesWeWatched.update(
-        {_id: id},
+        {_id: id, userId: this.userId},
         {$set: {text: newText}}
     );
 };
@@ -74,20 +76,20 @@ Movie.prototype.updateCast = function(id, cast) {
   }
 
   MoviesWeWatched.update(
-    {_id: id},
+    {_id: id, userId: this.userId},
     {$set: {cast: cast, castIndex: castIndex}}
   );
 };
 
 Movie.prototype.updateRating = function(rating) {
   MoviesWeWatched.update(
-    {_id: this._id},
+    {_id: this._id, userId: this.userId},
     {$set: {userRating: rating}}
   );
 };
 
 Movie.prototype.haveWatched = function(id) {
-  return  MoviesWeWatched.find({id: id}).count() > 0;
+  return  MoviesWeWatched.find({id: id, userId: this.userId}).count() > 0;
 };
 
 Movie.prototype.updateTVShow = function(selected) {
@@ -106,7 +108,7 @@ Movie.prototype.updateTVShow = function(selected) {
   if(selected.length == 0) {
     if(this.seasons.length > 0) { //remove all seasons, they unchecked everything.
       MoviesWeWatched.update(
-        {_id: this._id}, {$unset: {seasons: ""}});
+        {_id: this._id, userId: this.userId}, {$unset: {seasons: ""}});
       }
     return;
   }
@@ -118,7 +120,7 @@ Movie.prototype.updateTVShow = function(selected) {
       // no season in the db, but user has checked some episodes, add the season and the episodes that were checked
       if(!this.hasSeason(season)) {
         MoviesWeWatched.update(
-          {_id: this._id},
+          {_id: this._id, userId: this.userId},
           {$push: {"seasons": {"id": season.id, "name": season.name, "season_number": season.season_number, "overview": season.overview,
           "episodes": selectedEpisodes}}}
         )
@@ -139,7 +141,7 @@ Movie.prototype.updateTVShow = function(selected) {
         if(newEpisodes.length > 0) {
           for (var k = 0; k < newEpisodes.length; k++) {
             MoviesWeWatched.update(
-              {_id: this._id, seasons: {$elemMatch: {id: season.id}}},
+              {_id: this._id,  userId: this.userId, seasons: {$elemMatch: {id: season.id}}},
               {$addToSet : {"seasons.$.episodes": newEpisodes[k]}}
             )
           }
@@ -168,7 +170,7 @@ Movie.prototype.updateTVShow = function(selected) {
         if(removeEpisodes.length > 0) {
           for (var n = 0; n < removeEpisodes.length; n++) {
             MoviesWeWatched.update(
-              {_id: this._id, seasons: {$elemMatch: {id: season.id}}},
+              {_id: this._id,  userId: this.userId, seasons: {$elemMatch: {id: season.id}}},
               {$pull : {"seasons.$.episodes": removeEpisodes[n]}}
             )
           }
@@ -196,7 +198,7 @@ Movie.prototype.updateTVShow = function(selected) {
   if(removeSeasons.length > 0) {
     for (var n = 0; n < removeSeasons.length; n++) {
       MoviesWeWatched.update(
-        {_id:this._id},
+        {_id:this._id, userId: this.userId},
         {$pull : {"seasons": removeSeasons[n]}}
       )
     }
