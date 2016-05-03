@@ -5,8 +5,6 @@ var baseUrl = "http://api.themoviedb.org/3";
 var searchUrl = baseUrl + "/search/multi";
 var countSearchResults = 0;
 
-
-
 // using Node Futures here to make the call synchronous. Found code to do this here:
 //https://themeteorchef.com/snippets/synchronous-methods/#tmc-using-futures
 Meteor.methods({
@@ -77,15 +75,12 @@ Meteor.methods({
       var movie = new Movie();
       var id = movie.insert(selected[i]);
 
-      //console.log("from insert - i: " + i + " id: " + id);
-
       Meteor.call("getCast", selected[i].id, selected[i].media_type, function (error, response) {
         if (error) {
           alert(error);
           console.log(error);
         } else {
           if ((response != undefined && response.length > 0)) {
-            //console.log("from cast - i: " + i + " id: " + id);
             movie.updateCast(id, response);
           }
         }

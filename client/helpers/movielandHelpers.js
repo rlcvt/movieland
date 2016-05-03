@@ -38,7 +38,6 @@ Template.body.onCreated(function() {
 });
 
 UI.registerHelper('getFormattedDate', function(value) {
-    var x = 0;
     return value.toLocaleDateString("en-US");
 });
 
