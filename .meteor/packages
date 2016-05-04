@@ -23,8 +23,8 @@ peppelg:bootstrap-3-modal # bootstrap modal dialogs
 http                    # adds http requests
 barbatus:stars-rating   # star ratings
 
-accounts-ui
-#useraccounts:bootstrap
+#accounts-ui
+useraccounts:bootstrap
 accounts-password
 
 standard-minifier-css

@@ -70,6 +70,9 @@ Template.body.events({
       incrementPage();
       Session.set("currentSortType", addTimestamp(currentSort));
     }
+  },
+  "click .mvl-change-password": function() {
+    Modal.show("ChangePasswordDialog");
   }
 });
 

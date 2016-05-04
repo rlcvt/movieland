@@ -89,7 +89,7 @@ Meteor.methods({
   },
   getTotalWatchedCount: function() {
     var future = new Future();
-    future.return(MoviesWeWatched.find({}).count());
+    future.return(MoviesWeWatched.find({userId: Meteor.userId()}).count());
     return future.wait();
   },
   getSearchCount: function() {
@@ -117,7 +117,7 @@ Meteor.publish("getMovieListDefault", function(sortType, sortOrder, searchTerm, 
       var title = "title";
       query[title] = 1;
     }
-    return MoviesWeWatched.find({userId: this.userId}, {sort: query, limit: recordsPerPage, skip: recordsToSkip });;
+    return MoviesWeWatched.find({userId: this.userId}, {sort: query, limit: recordsPerPage, skip: recordsToSkip });
   }
   else {
     var cursor = MoviesWeWatched.find({ $text: {$search: searchTerm} }, {fields: {score: {$meta: "textScore"}}, sort: {score: {$meta: "textScore"}}, limit: recordsPerPage, skip: recordsToSkip});

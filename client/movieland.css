@@ -60,3 +60,18 @@
 .mvl-hide {
     display: none;
 }
+
+.mvl-inline-block {
+    display: inline-block;
+}
+
+.mvl-signout-button {
+    float: right;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.mvl-change-password {
+    display:table-cell;
+    vertical-align: baseline;
+}
