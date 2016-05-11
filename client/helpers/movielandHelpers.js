@@ -23,6 +23,9 @@ Template.body.helpers({
         moviesWatched = response;
         setWatchedDisplay(moviesWatched);
       });
+    },
+    displayLogoutDiv: function() {
+      $('.mvl-signout-button').show();
     }
 });
 

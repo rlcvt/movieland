@@ -233,3 +233,12 @@ Template.addMovieDialog.events({
   }
 });
 
+Template.ChangePasswordDialog.events({
+  "show.bs.modal": function () {
+
+    // clean up after successful password changed
+    $('.alert').alert("close");
+    $('.form-group').removeClass('has-success');
+  }
+});
+
