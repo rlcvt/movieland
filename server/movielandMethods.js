@@ -99,6 +99,10 @@ Meteor.methods({
   },
   clearSearchCount: function() {
     countSearchResults = 0;
+  },
+  updateRating: function(movieId, rating){
+    var movie = new Movie(movieId);
+    movie.updateRating(rating);
   }
 });
 

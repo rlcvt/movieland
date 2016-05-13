@@ -133,7 +133,7 @@ Template.viewing.events({
     var rating = $('#'+this.id).data('userrating');
     var movie =  MoviesWeWatched.findOne({_id: this.id});
     movie = new Movie(movie.id);
-    movie.updateRating(rating);
+    Meteor.call("updateRating", movie.id, rating);
   },
   "click .extrasVisibility": function(event)
   {
