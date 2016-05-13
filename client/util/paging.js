@@ -1,4 +1,4 @@
-recordsPerPage = 10;
+recordsPerPage = 8;
 recordsToSkip = 0;
 moviesWatched = -1;
 numberOfPages = 0;
