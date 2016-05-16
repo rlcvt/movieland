@@ -103,6 +103,10 @@ Meteor.methods({
   updateRating: function(movieId, rating){
     var movie = new Movie(movieId);
     movie.updateRating(rating);
+  },
+  removeMovie: function(movieId) {
+    var viewing = new Movie();
+    viewing.remove(movieId);
   }
 });
 

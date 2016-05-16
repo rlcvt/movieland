@@ -53,7 +53,7 @@ Movie.prototype.insert = function(movie) {
 };
 
 Movie.prototype.remove = function(id) {
-    MoviesWeWatched.remove({_id: id, userId: this.userId});
+    MoviesWeWatched.remove({id: id, userId: this.userId});
 };
 
 Movie.prototype.updateOne = function(id, newText) {

@@ -91,8 +91,7 @@ setSearchTerm = function(text) {
 
 Template.viewing.events({
     "click .mvl-delete": function () {
-        var viewing = new Movie();
-        viewing.remove(this._id);
+        Meteor.call("removeMovie", this.id);
         moviesWatched--;
         setWatchedDisplay(moviesWatched);
     },
@@ -181,7 +180,6 @@ Template.editMovieDialog.events({
       $(event.target).text(linkText);
       var watchedCount = checked ? checkboxCount : 0;
       updateWatched(seasonNumber, watchedCount);
-      //$("#watched_"+seasonNumber).text(" - watched: " +watchedCount);
     },
     "click .episodeCheckbox": function(event) {
       var divId = $(event.target).prop('data-divId');
