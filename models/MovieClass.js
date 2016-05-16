@@ -16,7 +16,7 @@ Movie = function (movieId) {
     this.userId = Meteor.userId();
 
     if(arguments.length > 0 && movieId != null){
-      var movie = MoviesWeWatched.findOne({id: movieId});
+      var movie = MoviesWeWatched.findOne({id: movieId, userId: Meteor.userId()});
         this.id = movie.id;
         this._id = movie._id;
         this.title = movie.title;
