@@ -24,17 +24,27 @@ buildSeasonsList = function (ulId) {
     li = createLi();
     addAttribute(li,"class","list-group-item");
 
-    span = createSpan();
-    span.innerHTML = seasons[i].name;
-
     var watchedEpidodes = [];
 
     if(movie.hasSeason(seasons[i])) {
       watchedEpidodes = movie.getEpisodesForSeason(seasons[i].season_number);
     }
 
+    span = createSpan();
+    var seasonName = seasons[i].name;
+
+    if(!hasValue(seasonName)) {
+      seasonName = "Season " + (i+1);
+    }
+
+    var watchedSpan = createSpan();
+    watchedSpan.innerHTML = " - watched: " + watchedEpidodes.length;
+    addAttribute(watchedSpan, "id", "watched_"+seasons[i].season_number);
+
+    span.innerHTML = seasonName;
+
+    span.appendChild(watchedSpan);
     // add the button to show/hide episodes div
-    //var button = createButton("show/hide");
     var link = createLink("more...");
 
     var season_number = "season_"+seasons[i].season_number;
@@ -49,6 +59,12 @@ buildSeasonsList = function (ulId) {
     var div = createDiv(season_number);
     addAttribute(div, "class", "season_div mvl-episodes-div");
 
+    var allToggle = createLink("all");
+    addAttribute(allToggle, "class", "mvl-toggle-episodes");
+    addAttribute(allToggle, "data-divId",div.id);
+    addAttribute(allToggle, "data-season-number", seasons[i].season_number);
+    div.appendChild(allToggle);
+
     var episodeUl = createUl();
     addAttribute(episodeUl,"class","list-group");
 
@@ -61,6 +77,7 @@ buildSeasonsList = function (ulId) {
       var checkbox = createCheckbox();
       addAttribute(checkbox, "data-episode", seasons[i].episodes[j]);
       addAttribute(checkbox, "data-season", seasons[i]);
+      addAttribute(checkbox, "data-divId",div.id)
       addAttribute(checkbox, "class", "episodeCheckbox");
 
       if(watchedEpidodes != null) {

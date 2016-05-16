@@ -160,6 +160,42 @@ Template.editMovieDialog.events({
     {
       toggleVisibility($( "#"+event.toElement.value)[0].id, event.currentTarget.id);
     },
+    "click .mvl-toggle-episodes": function (event)
+    {
+      var divId = $(event.target).prop('data-divId');
+      var seasonNumber = $(event.target).prop('data-season-number');
+      var checked = getCheckAllState(divId);
+      var linkText = "all";
+      var checkboxCount = 0;
+
+      $('#'+divId + ' input:checkbox').each(function() {
+        this.checked = checked;
+        checkboxCount++;
+      });
+
+
+      if(checked) {
+        linkText = "none";
+      }
+
+      $(event.target).text(linkText);
+      var watchedCount = checked ? checkboxCount : 0;
+      updateWatched(seasonNumber, watchedCount);
+      //$("#watched_"+seasonNumber).text(" - watched: " +watchedCount);
+    },
+    "click .episodeCheckbox": function(event) {
+      var divId = $(event.target).prop('data-divId');
+      var season = $(event.target).prop('data-season');
+      var seasonNumber = season.season_number;
+
+      var checkedCount = 0;
+
+      $('#'+divId + ' input:checked').each(function() {
+        checkedCount++;
+      });
+
+      updateWatched(seasonNumber, checkedCount);
+    },
     "click .saveEpisodes": function () {
       selected = [];
 
@@ -197,6 +233,30 @@ Template.editMovieDialog.events({
       Meteor.call("updateTVShow", tvShow.id, selected);
     }
 });
+
+// decide on whether or not checkboxes should be checked or unchecked. If
+// there are more checked than unchecked, then uncheck all. Conversly if there
+// are more unchecked that checked then check them all.
+getCheckAllState = function(divId) {
+  var totalUnchecked = 0;
+  var totalChecked = 0;
+
+  //  get a count of how many are checked and how many are not
+  $('#' + divId + ' input:checkbox').each(function () {
+    if (this.checked) {
+      totalChecked++;
+    }
+    else {
+      totalUnchecked++;
+    }
+  });
+
+  return totalChecked < totalUnchecked;
+};
+
+updateWatched = function(seasonNumber, watchedCount) {
+  $("#watched_"+seasonNumber).text(" - watched: " +watchedCount);
+};
 
 Template.addMovieDialog.events({
   "show.bs.modal": function () {
