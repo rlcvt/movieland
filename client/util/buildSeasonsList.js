@@ -25,6 +25,7 @@ buildSeasonsList = function (ulId) {
     addAttribute(li,"class","list-group-item");
 
     var watchedEpidodes = [];
+    var totalEpisodes = seasons[i].episodes.length;
 
     if(movie.hasSeason(seasons[i])) {
       watchedEpidodes = movie.getEpisodesForSeason(seasons[i].season_number);
@@ -38,10 +39,10 @@ buildSeasonsList = function (ulId) {
     }
 
     var watchedSpan = createSpan();
-    watchedSpan.innerHTML = " - watched: " + watchedEpidodes.length;
+    watchedSpan.innerHTML = " - watched " + watchedEpidodes.length;
     addAttribute(watchedSpan, "id", "watched_"+seasons[i].season_number);
 
-    span.innerHTML = seasonName;
+    span.innerHTML = seasonName  + ": " + totalEpisodes + " episodes";
 
     span.appendChild(watchedSpan);
     // add the button to show/hide episodes div
