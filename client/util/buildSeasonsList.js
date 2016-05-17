@@ -39,10 +39,11 @@ buildSeasonsList = function (ulId) {
     }
 
     var watchedSpan = createSpan();
-    watchedSpan.innerHTML = " - watched " + watchedEpidodes.length;
+    watchedSpan.innerHTML = totalEpisodes + " episodes"+" - watched " + watchedEpidodes.length;
     addAttribute(watchedSpan, "id", "watched_"+seasons[i].season_number);
+    addAttribute(watchedSpan, "class", "label label-default mvl-signout-button");
 
-    span.innerHTML = seasonName  + ": " + totalEpisodes + " episodes";
+    span.innerHTML = seasonName;
 
     span.appendChild(watchedSpan);
     // add the button to show/hide episodes div

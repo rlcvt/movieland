@@ -179,7 +179,7 @@ Template.editMovieDialog.events({
 
       $(event.target).text(linkText);
       var watchedCount = checked ? checkboxCount : 0;
-      updateWatched(seasonNumber, watchedCount);
+      updateWatched(seasonNumber, watchedCount, checkboxCount);
     },
     "click .episodeCheckbox": function(event) {
       var divId = $(event.target).prop('data-divId');
@@ -187,12 +187,16 @@ Template.editMovieDialog.events({
       var seasonNumber = season.season_number;
 
       var checkedCount = 0;
+      var totalCheckboxes = 0;
 
-      $('#'+divId + ' input:checked').each(function() {
-        checkedCount++;
+      $('#'+divId + ' input:checkbox').each(function() {
+        if (this.checked) {
+          checkedCount++;
+        }
+        totalCheckboxes++;
       });
 
-      updateWatched(seasonNumber, checkedCount);
+      updateWatched(seasonNumber, checkedCount, totalCheckboxes);
     },
     "click .saveEpisodes": function () {
       selected = [];
@@ -238,6 +242,7 @@ Template.editMovieDialog.events({
 getCheckAllState = function(divId) {
   var totalUnchecked = 0;
   var totalChecked = 0;
+  var totalCheckboxes = 0;
 
   //  get a count of how many are checked and how many are not
   $('#' + divId + ' input:checkbox').each(function () {
@@ -252,8 +257,8 @@ getCheckAllState = function(divId) {
   return totalChecked < totalUnchecked;
 };
 
-updateWatched = function(seasonNumber, watchedCount) {
-  $("#watched_"+seasonNumber).text(" - watched: " +watchedCount);
+updateWatched = function(seasonNumber, watchedCount, totalEpisodes) {
+  $("#watched_"+seasonNumber).text(totalEpisodes + " episodes"+ " - watched: " +watchedCount);
 };
 
 Template.addMovieDialog.events({
