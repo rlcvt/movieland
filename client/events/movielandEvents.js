@@ -180,6 +180,7 @@ Template.editMovieDialog.events({
       $(event.target).text(linkText);
       var watchedCount = checked ? checkboxCount : 0;
       updateWatched(seasonNumber, watchedCount, checkboxCount);
+      updateSeason(divId);
     },
     "click .episodeCheckbox": function(event) {
       var divId = $(event.target).prop('data-divId');
@@ -197,6 +198,7 @@ Template.editMovieDialog.events({
       });
 
       updateWatched(seasonNumber, checkedCount, totalCheckboxes);
+      updateSeason(divId);
     },
     "click .saveEpisodes": function () {
       selected = [];
@@ -235,6 +237,50 @@ Template.editMovieDialog.events({
       Meteor.call("updateTVShow", tvShow.id, selected);
     }
 });
+
+updateSeason = function(divId) {
+  selected = [];
+
+  var tvShow = Session.get("currentTVShow");
+  var currentSeason = null; // the season we are collecting episodes for
+  var episodes = [];
+
+  var thisSeason = null;
+
+  $('#'+divId + ' input:checkbox').each(function() {
+     thisSeason = $(this).prop('data-season');
+     return(false); // breaks out of .each loop
+  });
+
+  $('#'+divId + ' input:checked').each(function() {
+    var season = $(this).prop('data-season');
+    var episode = $(this).prop('data-episode');
+    var watched;
+
+    // see if we have a new season
+    if(currentSeason == null || currentSeason.season_number != season.season_number) {
+      if(currentSeason != null){ // check to make sure this insn't first time through
+
+        // save the current season
+        watched = [currentSeason, episodes];
+        selected.push(watched);
+        episodes = new Array();
+      }
+      currentSeason = season;
+    }
+    episodes.push(episode);
+  });
+
+  // takes care of last instance
+  if(currentSeason != null) {
+    watched = [currentSeason, episodes];
+    selected.push(watched);
+  }
+
+  // have to do this as a server side call, otherwise we get an "untrusted...." error. For an explanation:
+  // http://stackoverflow.com/questions/15464507/understanding-not-permitted-untrusted-code-may-only-update-documents-by-id-m
+  Meteor.call("updateTVShow2", tvShow.id, selected, thisSeason);
+};
 
 // decide on whether or not checkboxes should be checked or unchecked. If
 // there are more checked than unchecked, then uncheck all. Conversly if there

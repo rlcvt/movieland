@@ -54,6 +54,10 @@ Meteor.methods({
     var movie = new Movie(movieId);
     movie.updateTVShow(selected);
   },
+  updateTVShow2: function(movieId, selected, currentSeason){
+    var movie = new Movie(movieId);
+    movie.updateTVShow2(selected, currentSeason);
+  },
   getCast: function (id, mediaType) {
     var media = mediaType == "movie"? "movie" : "tv";
 
